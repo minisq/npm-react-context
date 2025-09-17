@@ -23,6 +23,7 @@ The context exposes the following functions:
 Wrap your app in the `AlertsProvider`
 
 ```
+jsx //
 import { AlertsProvider } from "@minisquare/react-context"
 
 const App = () => {
@@ -37,6 +38,7 @@ const App = () => {
 Manage alerts with the `useAlerts` hook
 
 ```
+jsx //
 import { useAlerts } from "@minisquare/react-context"
 
 const Form = () => {

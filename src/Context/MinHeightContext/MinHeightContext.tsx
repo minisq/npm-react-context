@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from "react"
+import React, { createContext, useEffect, useLayoutEffect, useRef, useState } from "react"
 
 type PixelString = `${number}px`
 
@@ -19,18 +19,20 @@ export const MinHeightProvider: React.FC<MinHeightProviderProps> = ({ children, 
 
     const calculateMinHeight = () => {
         const totalHeight = window.innerHeight
-        let minHeight = totalHeight
+        let resultHeight = totalHeight
 
         for (const element of Object.values(refs.current)) {
             if (!element) continue
             const elementHeight = element.getBoundingClientRect()?.height || 0
-            minHeight -= elementHeight
+            resultHeight -= elementHeight
         }
 
-        setMinHeight(`${minHeight}px`)
+        resultHeight = Math.max(0, resultHeight)
+
+        setMinHeight(`${resultHeight}px`)
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         for (const id of ids) {
             refs.current[id] = document.getElementById(id)
         }

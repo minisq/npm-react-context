@@ -3,6 +3,7 @@ import { Auth, onAuthStateChanged, User } from "firebase/auth"
 
 type AuthContextValue = {
     user: User | null
+    loading: boolean
 }
 
 type AuthProviderProps = {
@@ -14,14 +15,18 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
 export const FirebaseAuthProvider: React.FC<AuthProviderProps> = ({ children, auth }) => {
     const [user, setUser] = useState<User | null>(null)
+    const [loading, setLoading] = useState<boolean>(true)
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (u) => setUser(u))
+        const unsubscribe = onAuthStateChanged(auth, (u) => {
+            setUser(u)
+            setLoading(false)
+        })
 
         return () => unsubscribe()
     }, [])
 
-    return <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+    return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>
 }
 
 export const useFirebaseAuth = () => {

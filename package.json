@@ -1,6 +1,7 @@
 {
     "name": "@minisquare/react-context",
-    "version": "1.0.9",
+    "description": "A small collection of React.js contexts.",
+    "version": "1.0.12",
     "main": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
@@ -15,7 +16,6 @@
     },
     "author": "",
     "license": "ISC",
-    "description": "",
     "devDependencies": {
         "@types/react": "^19.1.12",
         "@types/react-dom": "^19.1.9",

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useLayoutEffect, useRef, useState } from "react"
+import React, { createContext, useContext, useLayoutEffect, useRef, useState } from "react"
 
 type PixelString = `${number}px`
 
@@ -56,4 +56,10 @@ export const MinHeightProvider: React.FC<MinHeightProviderProps> = ({ children, 
     }, [ids])
 
     return <MinHeightContext.Provider value={{ minHeight }}>{children}</MinHeightContext.Provider>
+}
+
+export const useMinHeight = () => {
+    const context = useContext(MinHeightContext)
+    if (!context) throw new Error("useMinHeight must be used within a MinHeightProvider")
+    return context
 }
